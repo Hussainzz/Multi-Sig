@@ -63,6 +63,7 @@ contract MultiSig{
         for (uint256 i; i < _owners.length; i++) {
             address owner = _owners[i];
             require(owner != address(0), "invalid owner");
+            require(!isOwner[owner], "duplicate owner");
             isOwner[owner] = true;
             walletOwners.push(owner);
         }

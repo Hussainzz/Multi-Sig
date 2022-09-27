@@ -21,7 +21,7 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     //verify contract
     if (!developmentChains.includes(network.name) && process.env.POLYSCAN_API_KEY) {
         log("Verifying...")
-        await verify(multiSigFactory.address, [deployer])
+        await verify(multiSigFactory.address, [])
     }
 }
 

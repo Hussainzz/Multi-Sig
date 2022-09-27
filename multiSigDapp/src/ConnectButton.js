@@ -7,7 +7,7 @@ import {
     useSwitchNetwork
   } from 'wagmi'
 
-const SUPPORTED_CHAIN =  Number(/* process.env.REACT_APP_CHAIN_ID */31337);
+const SUPPORTED_CHAIN =  Number(process.env.REACT_APP_CHAIN_ID);
 const ConnectButton = () => {
     const { address, isConnected } = useAccount()
     const { connect, connectors, error, isLoading, pendingConnector } =
@@ -21,7 +21,6 @@ const ConnectButton = () => {
     })
   
     if (isConnected) {
-      console.log(chain.id)
       if(chain.id === SUPPORTED_CHAIN){
         return (
           <div>

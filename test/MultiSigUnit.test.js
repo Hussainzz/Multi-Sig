@@ -16,9 +16,9 @@ describe("Multi Sig Unit Tests", function() {
         const totalApprovals = 1;
         await MultiSigFactory.createNewMultiSigWallet(walletName, owners, totalApprovals);
 
-        const [multiSigWalletAddress] = await MultiSigFactory.getMultiSigInfo(0);
+        const [name, multiSigAddress] = await MultiSigFactory.getMultiSigInfo(0);
         const multiSigWallet = await ethers.getContractFactory("MultiSig");
-        newWallet = multiSigWallet.attach(multiSigWalletAddress);
+        newWallet = multiSigWallet.attach(multiSigAddress);
     });
 
     describe("MultiSigFactory", function() {

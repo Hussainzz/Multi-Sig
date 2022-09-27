@@ -40,9 +40,10 @@ contract MultiSigFactory{
     returns (
       string memory walletName,
       address multiSigAddress,
+      address[] memory owners,
       uint signaturesRequired,
       uint balance
     ) {
-      return (multiSigs[_index].walletName(), address(multiSigs[_index]), multiSigs[_index].approvalsRequired(), address(multiSigs[_index]).balance);
+      return (multiSigs[_index].walletName(), address(multiSigs[_index]), multiSigs[_index].getMultiSigOwners(), multiSigs[_index].approvalsRequired(), address(multiSigs[_index]).balance);
     }
 }
