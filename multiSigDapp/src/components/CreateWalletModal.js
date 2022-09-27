@@ -67,6 +67,11 @@ const CreateWalletModal = ({ show, setShow, refetchUseWallets }) => {
 
     const addOwner = () => {
         if(owner === "") return;
+        const exists = newOwners.findIndex(o => o.toLowerCase() === owner.toLowerCase())
+        if(exists !== -1){
+          toast.error('Owner already exists');
+          return;
+        }
         setNewOwners(prev => {
             return [
                 ...prev,
