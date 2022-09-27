@@ -4,7 +4,7 @@ const { developmentChains } = require("../helper-hardhat");
 
 module.exports = async ({getNamedAccounts, deployments}) => {
     const {deployer} = await getNamedAccounts();
-    const {deploy} = deployments;
+    const {deploy, log} = deployments;
 
     const TestContract = await deploy("TestStorage",{
         from: deployer,

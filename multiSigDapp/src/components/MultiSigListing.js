@@ -60,7 +60,7 @@ const MultiSigListing = () => {
     selectedWallet?.multiSigAddress || ethers.constants.AddressZero;
 
   const { config } = usePrepareSendTransaction({
-    request: { to: multiSigAddr, value: ethers.utils.parseEther(depositWalletValue.toString()) },
+    request: { to: multiSigAddr, value: ethers.utils.parseEther((depositWalletValue.toString() !== "")?depositWalletValue.toString():"0") },
   })
   const { data, isLoading:depositing, isSuccess, sendTransaction } =  useSendTransaction(config)
 
@@ -334,7 +334,7 @@ const MultiSigListing = () => {
   };
 
   const depositHandler = async () => {
-    if(!depositWalletValue) return;
+    if(!Number(depositWalletValue)) return;
     sendTransaction?.();
   }
 
@@ -435,7 +435,9 @@ const MultiSigListing = () => {
                         min={0}
                         name="depositWallet"
                         value={depositWalletValue}
-                        onChange={(e) => {setDepositWalletValue(e.target.value)}}
+                        onChange={(e) => {
+                          setDepositWalletValue(e.target.value)
+                        }}
                     />
                     <ButtonWithLoader btnTxt={"Deposit"} btnColor="bg-red-600 mt-2" isLoading={depositing} onClickHandler={depositHandler}/>
                   <h4 className="p-2 font-extrabold">Owners</h4>
