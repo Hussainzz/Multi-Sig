@@ -6,8 +6,10 @@ import {
     useNetwork,
     useSwitchNetwork
   } from 'wagmi'
+import { TbActivityHeartbeat } from "react-icons/tb";
 
 const SUPPORTED_CHAIN =  Number(process.env.REACT_APP_CHAIN_ID);
+
 const ConnectButton = () => {
     const { address, isConnected } = useAccount()
     const { connect, connectors, error, isLoading, pendingConnector } =
@@ -32,15 +34,13 @@ const ConnectButton = () => {
       }else{
         return (
           <div>
-            <button className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded" onClick={() => {switchNetwork(SUPPORTED_CHAIN)}}>
-                Switch to polygon mumbai
+            <button className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded flex justify-between" onClick={() => {switchNetwork(SUPPORTED_CHAIN)}}>
+                <TbActivityHeartbeat/> Switch to polygon mumbai
             </button>
           </div>
         )
-      }
-      
+      } 
     }
-  
     return (
       <div>
         {connectors.map((connector) => (

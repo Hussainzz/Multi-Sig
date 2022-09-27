@@ -5,7 +5,7 @@ import JSONPrettyMon from "react-json-pretty/dist/monikai";
 import MultiSigABI from "../contracts/MultiSig.json";
 import MultiSigFactoryABI from "../contracts/MultiSigFactory.json";
 import { AiOutlineCopy } from "react-icons/ai";
-import { useAccount, useContract, usePrepareSendTransaction, useProvider, useSendTransaction } from "wagmi";
+import { useAccount, useContract, useNetwork, usePrepareSendTransaction, useProvider, useSendTransaction } from "wagmi";
 import MultiSigOption from "./MultiSigOption";
 import { FaWallet } from "react-icons/fa";
 import { ethers } from "ethers";
@@ -22,14 +22,14 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from "react-accessible-accordion";
-
-// Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
+
+const SUPPORTED_CHAIN =  Number(process.env.REACT_APP_CHAIN_ID);
 
 const MultiSigListing = () => {
   const ADD_OWNER_ACTION = "addNewOwnerProposal";
   const REMOVE_OWNER_ACTION = "removeOwnerProposal";
-
+  const { chain } = useNetwork()
   const { getContractFromApi } = useFetchContract();
   const { address, isConnected } = useAccount();
   const [showModal, setShowModal] = useState(false);
@@ -364,7 +364,7 @@ const MultiSigListing = () => {
               aria-label=".form-select-sm example"
               onChange={showWalletHandler}
               value={selectedWallet?.multiSigAddress || ""}
-              disabled={fetchingWallet}
+              disabled={!(isConnected && chain.id === SUPPORTED_CHAIN)}
             >
               <option defaultValue={""}>Select MultiSig Wallet</option>
               {wallets.length ? (
@@ -378,7 +378,7 @@ const MultiSigListing = () => {
           </div>
         </div>
 
-        {isConnected && (
+        {isConnected && chain.id === SUPPORTED_CHAIN && (
           <div className="col-end-7 col-span-2">
             <button
               className="bg-black hover:bg-slate-500 text-white text-sm font-bold py-2 px-4 rounded"
